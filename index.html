@@ -71,7 +71,9 @@
         }
         document.getElementById('generate-button').addEventListener('click',function(){
             const randomPin = Math.floor(1000 + Math.random() * 9000);
-            document.getElementById('generate-field').value = randomPin;    
+            document.getElementById('generate-field').value = randomPin;
+            document.getElementById('notify-matched').style.display = 'none';
+            document.getElementById('notify-unmatched').style.display = 'none';    
         })
         document.getElementById('submit-btn').addEventListener('click',function(){
             const randomPin = document.getElementById('generate-field').value;

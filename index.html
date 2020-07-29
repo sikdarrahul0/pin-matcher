@@ -43,7 +43,7 @@
                             </div>
                             <div>
                                 <button id='submit-btn' type="submit" class="submit-btn">Submit</button>
-                                <p class="action-left">3 try left</p>
+                                <p id="left-count" class="action-left">3 try left</p>
                             </div>
                     </div>
                 </div>
@@ -55,6 +55,7 @@
         </div>
     </div>
     <script>
+        var count = 3;
         function numberClick(id){
             const number = document.getElementById(id).innerHTML;
             var inputField = document.getElementById('input-field').value;
@@ -83,8 +84,15 @@
             }
             else{
                 notifyUnmatched()
+                if(count > 1){
+                document.getElementById('left-count').innerHTML = count - 1 + ' try left'
+                }
+                else{
+                    document.getElementById('left-count').innerHTML = 'No try left'
+                    
+                }
+                count--;
             }
-            document.getElementById('generate-field').value = '';
         })
         document.getElementById('clear-all').addEventListener('click',function(){
             document.getElementById('input-field').value = '';

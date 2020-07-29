@@ -12,13 +12,13 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="pin-generator half-width">
-                    <input id="generate-field" class="form-control" type="text">
+                    <input id="random-pin" class="form-control" type="text">
                     <button id="generate-button" class="generate-btn">Generate Pin</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="input-section half-width">
-                    <input id="input-field" class="form-control" type="text">
+                    <input id="pin-field" class="form-control" type="text">
                     <div class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
@@ -42,7 +42,7 @@
                                 <div id="clear-all" class="button">C</div>
                             </div>
                             <div>
-                                <button id='submit-btn' type="submit" class="submit-btn">Submit</button>
+                                <button id='submit-button' type="submit" class="submit-btn">Submit</button>
                                 <p id="left-count" class="action-left">3 try left</p>
                             </div>
                     </div>
@@ -50,58 +50,62 @@
             </div>
         </div>
         <div class="notify-section">
-            <p id="notify-unmatched" class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p id="notify-matched" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+            <p id="failed" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="succeed" class="notify">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
     <script>
         var count = 3;
         function numberClick(id){
             const number = document.getElementById(id).innerHTML;
-            var inputField = document.getElementById('input-field').value;
-            var present = inputField + number;
-            document.getElementById('input-field').value = present;
+            var pinField = document.getElementById('pin-field').value;
+            var presentPin = pinField + number;
+            document.getElementById('pin-field').value = presentPin;
         }
-        function notifyMatched(){
-            document.getElementById('notify-matched').style.display = 'block';
-            document.getElementById('notify-unmatched').style.display = 'none';
+        function notifyChecker(visible,hidden){
+            document.getElementById(visible).style.display = 'block';
+            document.getElementById(hidden).style.display = 'none';
         }
-        function notifyUnmatched(){
-            document.getElementById('notify-unmatched').style.display = 'block';
-            document.getElementById('notify-matched').style.display = 'none';
-        }
+        // random number generate button code
         document.getElementById('generate-button').addEventListener('click',function(){
             const randomPin = Math.floor(1000 + Math.random() * 9000);
-            document.getElementById('generate-field').value = randomPin;
-            document.getElementById('notify-matched').style.display = 'none';
-            document.getElementById('notify-unmatched').style.display = 'none';    
+            document.getElementById('random-pin').value = randomPin;
+            document.getElementById('succeed').style.display = 'none';
+            document.getElementById('failed').style.display = 'none'; 
+            count = 3;
+            document.getElementById('left-count').innerHTML = count + ' try left'   
         })
-        document.getElementById('submit-btn').addEventListener('click',function(){
-            const randomPin = document.getElementById('generate-field').value;
-            const inputField = document.getElementById('input-field').value;
-            if(randomPin == inputField){
-                notifyMatched()
+        // submit button code
+        document.getElementById('submit-button').addEventListener('click',function(){
+            const randomPin = document.getElementById('random-pin').value;
+            const presentPin = document.getElementById('pin-field').value;
+            if(randomPin == '' && presentPin == ''){
+                document.getElementById('succeed').style.display = 'none';
+                document.getElementById('failed').style.display = 'none'; 
+            }
+            else if(randomPin == presentPin){
+                notifyChecker('succeed','failed')
             }
             else{
-                notifyUnmatched()
+                notifyChecker('failed','succeed')
                 if(count > 1){
                 document.getElementById('left-count').innerHTML = count - 1 + ' try left'
                 }
                 else{
                     document.getElementById('left-count').innerHTML = 'No try left'
-                    
                 }
                 count--;
             }
         })
+        // clear button js code
         document.getElementById('clear-all').addEventListener('click',function(){
-            document.getElementById('input-field').value = '';
+            document.getElementById('pin-field').value = '';
         })
+        // single value delete button js code
         document.getElementById('dlt-last-number').addEventListener('click',function(){
-            var inputField = document.getElementById('input-field').value;
-            const length = inputField.length;
-            document.getElementById('input-field').value = inputField.slice(0,(length-1));
-            
+            const pinField = document.getElementById('pin-field').value;
+            const length = pinField.length;
+            document.getElementById('pin-field').value = pinField.slice(0,(length-1));    
         })
     </script>
 </body>

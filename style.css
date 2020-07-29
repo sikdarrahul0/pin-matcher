@@ -78,6 +78,9 @@ margin-right: -4px;
 border-radius: 10px;
 cursor: pointer;
 }
+.button:hover{
+    background-color: #495BC3;
+}
 .blink-me {
 color: #E0B612;
 }
@@ -106,9 +109,9 @@ color: #E0B612;
     color: #FF3C5F;
     margin-top: 10px;
 }
-#notify-unmatched{
+#failed{
     display: none;
 }
-#notify-matched{
+#succeed{
     display: none;
 }

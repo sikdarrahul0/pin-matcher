@@ -73,7 +73,8 @@
             document.getElementById('succeed').style.display = 'none';
             document.getElementById('failed').style.display = 'none'; 
             count = 3;
-            document.getElementById('left-count').innerHTML = count + ' try left'   
+            document.getElementById('left-count').innerHTML = count + ' try left'
+            document.getElementById('submit-button').disabled = false;   
         })
         // submit button code
         document.getElementById('submit-button').addEventListener('click',function(){
@@ -93,6 +94,7 @@
                 }
                 else{
                     document.getElementById('left-count').innerHTML = 'No try left'
+                    document.getElementById('submit-button').disabled = true;
                 }
                 count--;
             }

@@ -54,61 +54,6 @@
             <p id="succeed" class="notify">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
-    <script>
-        var count = 3;
-        function numberClick(id){
-            const number = document.getElementById(id).innerHTML;
-            var pinField = document.getElementById('pin-field').value;
-            var presentPin = pinField + number;
-            document.getElementById('pin-field').value = presentPin;
-        }
-        function notifyChecker(visible,hidden){
-            document.getElementById(visible).style.display = 'block';
-            document.getElementById(hidden).style.display = 'none';
-        }
-        // random number generate button code
-        document.getElementById('generate-button').addEventListener('click',function(){
-            const randomPin = Math.floor(1000 + Math.random() * 9000);
-            document.getElementById('random-pin').value = randomPin;
-            document.getElementById('succeed').style.display = 'none';
-            document.getElementById('failed').style.display = 'none'; 
-            count = 3;
-            document.getElementById('left-count').innerHTML = count + ' try left'
-            document.getElementById('submit-button').disabled = false;   
-        })
-        // submit button code
-        document.getElementById('submit-button').addEventListener('click',function(){
-            const randomPin = document.getElementById('random-pin').value;
-            const presentPin = document.getElementById('pin-field').value;
-            if(randomPin == '' && presentPin == ''){
-                document.getElementById('succeed').style.display = 'none';
-                document.getElementById('failed').style.display = 'none'; 
-            }
-            else if(randomPin == presentPin){
-                notifyChecker('succeed','failed')
-            }
-            else{
-                notifyChecker('failed','succeed')
-                if(count > 1){
-                document.getElementById('left-count').innerHTML = count - 1 + ' try left'
-                }
-                else{
-                    document.getElementById('left-count').innerHTML = 'No try left'
-                    document.getElementById('submit-button').disabled = true;
-                }
-                count--;
-            }
-        })
-        // clear button js code
-        document.getElementById('clear-all').addEventListener('click',function(){
-            document.getElementById('pin-field').value = '';
-        })
-        // single value delete button js code
-        document.getElementById('dlt-last-number').addEventListener('click',function(){
-            const pinField = document.getElementById('pin-field').value;
-            const length = pinField.length;
-            document.getElementById('pin-field').value = pinField.slice(0,(length-1));    
-        })
-    </script>
+    <script src="index.js"></script>
 </body>
 </html>
